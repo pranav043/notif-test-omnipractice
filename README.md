@@ -4,9 +4,9 @@ This is a test Notification Service of a Phone Company that gives API to other c
 
 ## FILES-
 
-- api.js: Contains API we support for users
-- helpers.js: Contains helper function we use
-- queueCronJob.js: Cron Job for Updating Pending Notifications present in Queue
+- `api.js`: Contains API we support for users
+- `helpers.js`: Contains helper function we use
+- `queueCronJob.js`: Cron Job for Updating Pending Notifications present in Queue
 
 ## API Endpoints
 
@@ -14,10 +14,10 @@ This is a test Notification Service of a Phone Company that gives API to other c
 
 - **Purpose:** Accepts notification requests from mobile applications.
 - **Parameters:**
-  - `appType`: Type of the mobile application.
-  - `content`: Content of the notification.
-  - `deviceId`: Unique identifier for the target device.
-  - `timeStamp`: Timestamp for the notification.
+  - `applicationType`: Type of the mobile application.
+  - `notificationContent`: Content of the notification.
+  - `deviceID`: Unique identifier for the target device.
+  - `timestamp`: Timestamp for the notification.
 
 ### 2. GET /notifications/:notifyId/status
 
@@ -35,10 +35,10 @@ This is a test Notification Service of a Phone Company that gives API to other c
 
 The helper functions provide essential functionalities for the Notification Service:
 
-- `pingDevice(deviceId)`: Pings the device to check its online status.
-- `sendNotificationToPhoneServer(deviceId, content)`: Sends a notification to the target device.
-- `sendNotificationWithRetry(notifyId, deviceId, content, timeStamp, maxRetries)`: Attempts to send a notification with retry logic.
-- `saveNotificationToDatabase(deviceId, appType, content, timeStamp)`: Saves a notification record to the database.
+- `pingDevice(deviceID)`: Pings the device to check its online status.
+- `sendNotificationToPhoneServer(deviceID, notificationContent)`: Sends a notification to the target device.
+- `sendNotificationWithRetry(notifyId, deviceID, notificationContent, timestamp)`: Attempts to send a notification with retry logic.
+- `saveNotificationToDatabase(deviceID, applicationType, notificationContent, timestamp)`: Saves a notification record to the database.
 - `updateNotificationStatus(notifyId, status)`: Updates the status of a notification in the database.
 - `storePendingNotification(notifyId, deviceId, timeStamp)`: Stores a pending notification in the queue.
 - `checkNotificationStatus(notifyId)`: Checks the status of a notification in the database.
@@ -56,10 +56,10 @@ The assumed schema for notifications in the database:
 ```javascript
 notificationSchema = {
   notifyId: { type: ObjectId, required: true, unique: true },
-  deviceId: { type: String, required: true },
-  appType: { type: String, required: true },
-  content: { type: String, required: true },
-  timeStamp: { type: Date, required: true },
+  deviceID: { type: String, required: true },
+  applicationType: { type: String, required: true },
+  notificationContent: { type: String, required: true },
+  timestamp: { type: Date, required: true },
   status: { type: String, default: "pending" },
   isDeleted: { type: Boolean, default: false },
 };
